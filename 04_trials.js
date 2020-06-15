@@ -11,29 +11,55 @@ const nr_trials_main = 60-nr_trials_practice;
 
 create_n_trials = function (nr_trials) {
   return _.map(_.range(nr_trials), function () {
-    let trial = _.sample([
-        {
-            number: same_pic[0].split("_")[0],
-            rotation: same_pic[0].split("_")[1],
-            relationship: "same",
-            picture: `images/mental_rotation_images/${same_pic[0]}_same.jpg`,
-            key1: "f",
-            key2: "j",
-            f: f_key,
-            j: j_key,
-            expected: "same"
-        },{
-            number: different_pic[0].split("_")[0],
-            rotation: different_pic[0].split("_")[1],
-            relationship: "different",
-            picture: `images/mental_rotation_images/${different_pic[0]}_different.jpg`,
-            key1: "f",
-            key2: "j",
-            f: f_key,
-            j: j_key,
-            expected: "different"
-        }
-    ]);
+      if (same_pic.length==0) {
+            var trial = {
+                number: different_pic[0].split("_")[0],
+                rotation: different_pic[0].split("_")[1],
+                relationship: "different",
+                picture: `images/mental_rotation_images/${different_pic[0]}_different.jpg`,
+                key1: "f",
+                key2: "j",
+                f: f_key,
+                j: j_key,
+                expected: "different"
+            }
+      } else if (different_pic.length==0) {
+            var trial = {
+                number: same_pic[0].split("_")[0],
+                rotation: same_pic[0].split("_")[1],
+                relationship: "same",
+                picture: `images/mental_rotation_images/${same_pic[0]}_same.jpg`,
+                key1: "f",
+                key2: "j",
+                f: f_key,
+                j: j_key,
+                expected: "same"
+            }
+      } else {
+            var trial = _.sample([
+                {
+                    number: same_pic[0].split("_")[0],
+                    rotation: same_pic[0].split("_")[1],
+                    relationship: "same",
+                    picture: `images/mental_rotation_images/${same_pic[0]}_same.jpg`,
+                    key1: "f",
+                    key2: "j",
+                    f: f_key,
+                    j: j_key,
+                    expected: "same"
+                },{
+                    number: different_pic[0].split("_")[0],
+                    rotation: different_pic[0].split("_")[1],
+                    relationship: "different",
+                    picture: `images/mental_rotation_images/${different_pic[0]}_different.jpg`,
+                    key1: "f",
+                    key2: "j",
+                    f: f_key,
+                    j: j_key,
+                    expected: "different"
+                }
+            ]);
+        }       
     if (trial.relationship === "same"){
         same_pic.shift();
     } else {
