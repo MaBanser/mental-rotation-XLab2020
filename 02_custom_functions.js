@@ -18,7 +18,7 @@ function get_other_key(j_key){
 }
 
 const nr_trials_practice = 12;
-const nr_trials_main = 15-nr_trials_practice;
+const nr_trials_main = 60-nr_trials_practice;
 
 
 /* Helper functions
