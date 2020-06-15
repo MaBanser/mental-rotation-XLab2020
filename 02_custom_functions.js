@@ -17,6 +17,9 @@ function get_other_key(j_key){
     return key;
 }
 
+const nr_trials_practice = 12;
+const nr_trials_main = 15-nr_trials_practice;
+
 
 /* Helper functions
 *
@@ -45,8 +48,11 @@ const generateID = function(len) {
 *
 */
 
+var trial_counter = 0;
 // Error feedback if participants exceeds the time for responding
 const time_limit = function(data, next) {
+    trial_counter++;
+    console.info(this)
     if (typeof window.timeout === 'undefined'){
         window.timeout = [];
     } else {
@@ -58,14 +64,16 @@ const time_limit = function(data, next) {
     }
     // Add timeouts to the timeoutarray to access them later
     // Reminds the participant to respond after 7.5 seconds
-    if (window.magpie_monitor.currentTrialInViewCounter < window.magpie_monitor.views_seq[window.magpie_monitor.currentViewCounter].trials){
+    if (trial_counter < nr_trials_main){
         window.timeout.push(setTimeout(function(){
             $('#keypress_header').text('Please answer more quickly!');
             $('#image').hide();
         }, 7500));
-        window.timeout.push(setTimeout(function(){
-            window.magpie_monitor.findNextView();
-        }, 8500));
+        if(window.magpie_monitor!=null) {
+            window.timeout.push(setTimeout(function(){
+                window.magpie_monitor.findNextView();
+            }, 8500));
+        }
     }
     next();
 };
@@ -88,7 +96,7 @@ check_response = function(data, next) {
         }
     })    
     next();
-}
+};
 
 // Declare your hooks here
 
