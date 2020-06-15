@@ -6,9 +6,6 @@ const picture_prefix = ["1_50","2_50","3_50","4_50","5_50","6_50","7_50","8_50",
 var same_pic = _.shuffle(picture_prefix);
 var different_pic = _.shuffle(picture_prefix);
 
-const nr_trials_practice = 12;
-const nr_trials_main = 60-nr_trials_practice;
-
 create_n_trials = function (nr_trials) {
   return _.map(_.range(nr_trials), function () {
       if (same_pic.length==0) {
